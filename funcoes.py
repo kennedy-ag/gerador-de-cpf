@@ -1,15 +1,17 @@
 from random import randint
 
+# Verifica se todos os numeros do CPF são iguais
 def all_equal(cpf):
   comparador = cpf[0]
-  for i in cpf:
-    if(comparador != i):
+  for digito in cpf:
+    if(comparador != digito):
       return False
   return True
 
+# Implementa o cálculo de validade de CPF
 def is_valid_cpf(cpf):
-  a = all_equal(cpf)
-  if(not a):
+  todos_iguais = all_equal(cpf)
+  if(not todos_iguais):
     c = 10
     soma = 0
     for i in range(0, 9):
@@ -37,10 +39,11 @@ def is_valid_cpf(cpf):
   else:
     return False
 
+# Gera um CPF aleatório
 def generate_valid_cpf():
-  cpf = randint(0, 44444444444)
+  cpf = randint(0, 99999999999)
   cpf = str(cpf)
   if(len(cpf)<11):
-    complement = '2'*(11-len(cpf))
-    cpf = "{0}{1}".format(cpf, complement)
+    complemento = '0'*(11-len(cpf))
+    cpf = f"{complemento}{cpf}"
   return cpf

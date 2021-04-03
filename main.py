@@ -1,18 +1,26 @@
-import funcoes
-cpfs_validos = []
-for i in range(0, 100):
-  cpf = funcoes.generate_valid_cpf()
-  if(funcoes.is_valid_cpf(cpf)):
-    print("CPF válido!")
-    cpfs_validos.append(cpf)
-    a = open("cpfs_validos.txt", 'a')
-    a.write("{0}{1}{2}{1}{3}{4}{5}{6}".format(cpf[0:3], '.', cpf[3:6], cpf[6:9], '-', cpf[9:11], "\n"))
-    a.close()
-  else:
-    print("CPF inválido!")
-print()
-print("Terminado com sucesso!\nResultados:")
-if(len(cpfs_validos)!=0):
+import funcoes      # Importa o arquivo com as funções
+cpfs_validos = []  # Lista para armazenas os CPFs considerados válidos
+
+# Captura a escolha do usuário
+opcao = input("O que deseja fazer?\n1 - Gerar CPF(s) válidos\n2 - Verificar se um CPF é válido\n\n")
+
+# Verifica qual a opção escolhida e executa a ação correspondente
+if opcao=='1':
+  for i in range(0, 500):
+    cpf = funcoes.generate_valid_cpf()
+    if funcoes.is_valid_cpf(cpf):
+      cpfs_validos.append(cpf)
+      with open("cpfs_validos.txt", 'a') as arquivo:
+        arquivo.write(f"{cpf[0:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}\n")
+  print(f"\nForam gerados {len(cpfs_validos)} CPFs válidos.\nResultados:")
   print(cpfs_validos)
+
+elif opcao=='2':
+  cpf = input("Digite o CPF que deseja testar (somente números): ")
+  if funcoes.is_valid_cpf(cpf):
+    print(f"O CPF {cpf} é válido!")
+  else:
+    print(f"O CPF {cpf} é inválido!")
+
 else:
-  print("Nada para mostrar!")
+  print("Opção inválida!")
